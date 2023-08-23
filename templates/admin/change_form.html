@@ -23,17 +23,19 @@
                 max-width: 100%;
             }
         </style>
-            <div class="form-group">
-                <a href="{% url 'object_details' 'wellsfargodocumentation' 1 %}" class="btn btn-success form-control">Vista previa</a>
-            </div>
-            <div class="col-12 col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        {% get_changeform_template adminform as changeform_template %}
-                        {% include changeform_template %}
-                    </div>
+        {% if 'change' in request.path %}
+        <div class="form-group">
+            <a href="{% url 'object_details' model_name 1 %}" class="btn btn-success form-control">Vista previa</a>
+        </div>
+        {% endif %}
+        <div class="col-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    {% get_changeform_template adminform as changeform_template %}
+                    {% include changeform_template %}
                 </div>
             </div>
+        </div>
     {% elif 'change' in request.path and 'user' in request.path %}
         <style>
             .col-sm-3 {
