@@ -9,10 +9,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('oauth2_provider', '0005_alter_accesstoken_user_alter_application_user_and_more'),
-    ]
-
     operations = [
         migrations.CreateModel(
             name='WellsFargoApplication',

@@ -8,7 +8,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('oauth2_provider', '0005_alter_accesstoken_user_alter_application_user_and_more'),
         ('applications', '0002_rename_consumer_key_wellsfargoapplication_api_id_and_more'),
     ]
 
