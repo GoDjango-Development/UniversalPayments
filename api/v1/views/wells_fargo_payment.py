@@ -1,10 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.permissions import IsValidClient, IsAuthenticated
+from api.permissions import IsAuthenticated
 from api.v1.utils.wells_fargo import *
 from payments.models import WellsFargoPayment
-from api.v1.serializers.wells_fargo import SettingSerializer, TransactionDetailsSerializer, WellsFargoPaymentSerializer, CreditCardSerializer, \
-    CustomerAddressSerializer, CustomerDataSerializer, ItemSerializer, PaymentDataSerializer, OrderSerializer
+from api.v1.serializers.wells_fargo import TransactionDetailsSerializer, WellsFargoPaymentSerializer
 from oauth2_provider.models import AccessToken
 from django.utils import timezone
 from applications.models import WellsFargoApplication
