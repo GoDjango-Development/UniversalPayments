@@ -1,0 +1,55 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static jazzmin %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+{% block content_title %}
+Detalles de {{ obj }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="/admin/oauth2_provider/">Django OAuth Toolkit</a></li>
+    <li class="breadcrumb-item"><a href="/admin/oauth2_provider/application/">Aplicaciones</a></li>
+    <li class="breadcrumb-item">{{obj.name}}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered" style="margin-top: 15px;">
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ obj.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>ID de cliente</th>
+                        <td>{{ obj.client_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Secreto de cliente</th>
+                        <td>{{ obj.client_secret }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/admin/oauth2_provider/application/{{obj.pk}}/change/" class="btn btn-primary pull-left
+                            text-white">
+                    <i class="fa fa-pencil margin-r-5"></i>
+                    Editar
+                </a>
+                <button onclick="history.go(-1)" class="btn btn-danger pull-right">
+                    <i class="fa fa-ban margin-r-5"></i>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

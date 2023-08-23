@@ -1,0 +1,2 @@
+from .wells_fargo import WellsFargoDocumentationForm
+from .square import SquareDocumentationForm

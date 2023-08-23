@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static jazzmin admin_urls admin_list %}
+{% get_jazzmin_settings request as jazzmin_settings %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+{% block content_title %}
+Detalles de {{ obj }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:app_list' app_label='applications' %}">Wells Fargo</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:documentations_wellsfargodocumentation_changelist' %}">Documentación</a></li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{obj.documentation|safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
