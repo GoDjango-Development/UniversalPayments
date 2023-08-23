@@ -174,6 +174,7 @@ OAUTH2_PROVIDER = {
 JAZZMIN_SETTINGS = {
     "site_title": "Universal Payments",
     "site_header": "Universal Payments",
+    "site_brand": "Universal Payments",
     "welcome_sign": "Bienvenido a Universal Payments",
     "hide_apps": [
         'oauth2_provider',
