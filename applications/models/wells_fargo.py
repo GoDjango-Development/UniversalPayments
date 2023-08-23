@@ -2,8 +2,8 @@ from django.db import models
 from oauth2_provider.models import Application
 
 class WellsFargoApplication(Application):
-    api_id = models.CharField(max_length=100, verbose_name="CONSUMER KEY", null=True, blank=True)
-    api_secret = models.CharField(max_length=100, verbose_name="CONSUMER SECRET", null=True, blank=True)
+    api_id = models.CharField(max_length=100, verbose_name="API ID", null=True, blank=True)
+    api_secret = models.CharField(max_length=100, verbose_name="API SECRET", null=True, blank=True)
     
     class Meta:
         db_table = 'wellsfargo_application'
