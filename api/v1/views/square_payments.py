@@ -56,8 +56,7 @@ class CreateSquarePayment(APIView):
         data = request.data.copy()
         
       
-        data['user'] = str(request.user.id)
-        data['square_app'] = application.name
+        data['user'] = request.user.id
         data['idempotency_key'] = str(uuid.uuid4())
         data['currency'] = ACCOUNT_CURRENCY
         data['reference_id'] = str(uuid.uuid4())
@@ -65,7 +64,7 @@ class CreateSquarePayment(APIView):
         request_body={
        "source_id":  request.data['source_id'],
        "amount_money":{
-           "amount": int(request.data['amount']),
+           "amount": float(request.data['amount'])*100,
            "currency": data['currency']
        },
     

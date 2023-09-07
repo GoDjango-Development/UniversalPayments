@@ -20,7 +20,7 @@ class SquaresPayment(models.Model):
     square_app = models.ForeignKey(Application, verbose_name="Aplicación", on_delete=models.CASCADE, null=True, blank=True)
     idempotency_key = models.CharField(verbose_name="ID de transacción", max_length=100,null=True)
     source_id=models.CharField(verbose_name="Fuente de Pago", max_length=100,null=True)
-    amount=models.IntegerField(verbose_name="Cantidad de dinero a pagar",null=True)
+    amount=models.FloatField(verbose_name="Cantidad de dinero a pagar",null=True)
     currency=models.CharField(verbose_name="Tipo de Moneda",max_length=20,null=True)
     customer_id=models.CharField(verbose_name="Cuenta de Destino", max_length=100,null=True)
     reference_id=models.CharField(verbose_name="ID Único de Tranferencia", max_length=100,null=True)
