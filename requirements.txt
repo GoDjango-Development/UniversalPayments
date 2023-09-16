@@ -1,5 +1,6 @@
 asgiref==3.7.2
 git+https://github.com/daniel2751241/sdk-python.git@master#egg=authorizenet
+cybersource-rest-client-python==0.0.39
 Django==4.2.2
 django-ckeditor==6.5.0
 django-environ==0.8.1
