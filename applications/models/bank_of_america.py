@@ -12,7 +12,7 @@ class BankOfAmericaApplication(Application):
     merchant_id = models.CharField(max_length=100, verbose_name="Merchant ID", null=True, blank=True)
     key = models.CharField(max_length=100, verbose_name="Key", null=True, blank=True)
     shared_secret_key = models.CharField(max_length=100, verbose_name="Shared secret key", null=True, blank=True)
-    run_environment=models.CharField(verbose_name="Entorno", max_length=50, choices=ENVIRONMENTS)
+    run_environment = models.CharField(verbose_name="Entorno", max_length=50, choices=ENVIRONMENTS)
     
     class Meta:
         db_table = 'bankofamerica_application'

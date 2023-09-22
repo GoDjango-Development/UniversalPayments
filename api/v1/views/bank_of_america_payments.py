@@ -244,6 +244,7 @@ class CreateBoAPayment(APIView):
         try:
             # get the gateway specifications
             config_obj = BoAConfiguration()
+            config_obj.run_environment = application.run_environment
             client_config = config_obj.get_configuration()
             # attempt to make the transaction
             api_instance = PaymentsApi(client_config)
