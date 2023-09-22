@@ -25,24 +25,24 @@ from CyberSource.logging.log_configuration import LogConfiguration
 class BoAConfiguration:
     def __init__(self):
         self.authentication_type ="http_signature"
-        self.merchantid = "80020780"
-        self.alternative_merchantid = "testrest_cpctv"
+        self.merchantid = ""
+        self.alternative_merchantid = ""
         # self.run_environment = "apitest.cybersource.com"
         self.run_environment = "api.cybersource.com"
         self.request_json_path = ""
         # JWT PARAMETERS
-        self.key_alias = "testrest"
-        self.key_pass = "testrest"
-        self.key_file_name = "testrest"
-        self.alternative_key_alias = "testrest_cpctv"
-        self.alternative_key_pass = "testrest_cpctv"
-        self.alternative_key_file_name = "testrest_cpctv"
-        self.keys_directory = os.path.join(os.getcwd(), "resources")
+        self.key_alias = ""
+        self.key_pass = ""
+        self.key_file_name = ""
+        self.alternative_key_alias = ""
+        self.alternative_key_pass = ""
+        self.alternative_key_file_name = ""
+        self.keys_directory = os.path.join(os.getcwd(), "")
         # HTTP PARAMETERS
-        self.merchant_keyid = "a54b786a-4162-4f2f-8628-c505fe2e0b0f"
-        self.merchant_secretkey = "lJUjRKnu+4QNfSFV218vtKSMJwISW6b7/Ptsm2H+jwo="
-        self.alternative_merchant_keyid = "e547c3d3-16e4-444c-9313-2a08784b906a"
-        self.alternative_merchant_secretkey = "JXm4dqKYIxWofM1TIbtYY9HuYo7Cg1HPHxn29f6waRo="
+        self.merchant_keyid = "7a5e137f-7459-4205-9161-bba36a94dfda"
+        self.merchant_secretkey = "+wJ+ZYEoQ81MkNinq0pRy3kO3ajZp96vwYkDlf9hQrI="
+        self.alternative_merchant_keyid = "7a5e137f-7459-4205-9161-bba36a94dfda"
+        self.alternative_merchant_secretkey = "+wJ+ZYEoQ81MkNinq0pRy3kO3ajZp96vwYkDlf9hQrI="
         # META KEY PARAMETERS
         self.use_metakey = False
         self.portfolio_id = ''
@@ -193,37 +193,35 @@ class CreateBoAPayment(APIView):
         )
         
 
-        orderInformation = Ptsv2paymentsOrderInformation(
-            amount_details=orderInformationAmountDetails.__dict__,
-        )
-
         # build payer data
         customerAddressData = data.get('customer_address')
-        if customerAddressData:
-            orderInformationBillToFirstName = user.first_name
-            orderInformationBillToLastName = user.last_name
-            # orderInformationBillToAddress1 = user.direccion
-            orderInformationBillToAddress1 = customerAddressData.get('direccion')
-            # orderInformationBillToLocality = user.ciudad
-            orderInformationBillToLocality = customerAddressData.get('locacion')
-            orderInformationBillToAdministrativeArea = customerAddressData.get('area')
-            # orderInformationBillToPostalCode = user.codigo_postal or "33166"
-            orderInformationBillToPostalCode = customerAddressData.get('postal')
-            orderInformationBillToCountry = customerAddressData.get('pais')
-            orderInformationBillToEmail = user.email
-            orderInformationBillToPhoneNumber = customerAddressData.get('telefono')
-            orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
-                first_name=orderInformationBillToFirstName,
-                last_name=orderInformationBillToLastName,
-                address1=orderInformationBillToAddress1,
-                locality=orderInformationBillToLocality,
-                administrative_area=orderInformationBillToAdministrativeArea,
-                postal_code=orderInformationBillToPostalCode,
-                country=orderInformationBillToCountry,
-                email=orderInformationBillToEmail,
-                phone_number=orderInformationBillToPhoneNumber
-            )
-            orderInformation.bill_to=orderInformationBillTo.__dict__
+        orderInformationBillToFirstName = customerAddressData.get('first_name')
+        orderInformationBillToLastName = customerAddressData.get('last_name')
+        # orderInformationBillToAddress1 = user.direccion
+        orderInformationBillToAddress1 = customerAddressData.get('address')
+        # orderInformationBillToLocality = user.ciudad
+        orderInformationBillToLocality = customerAddressData.get('locality')
+        orderInformationBillToAdministrativeArea = customerAddressData.get('area')
+        # orderInformationBillToPostalCode = user.codigo_postal or "33166"
+        orderInformationBillToPostalCode = customerAddressData.get('postal')
+        orderInformationBillToCountry = customerAddressData.get('country')
+        orderInformationBillToEmail = customerAddressData.get('email')
+        orderInformationBillToPhoneNumber = customerAddressData.get('phone')
+        orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
+            first_name=orderInformationBillToFirstName,
+            last_name=orderInformationBillToLastName,
+            address1=orderInformationBillToAddress1,
+            locality=orderInformationBillToLocality,
+            administrative_area=orderInformationBillToAdministrativeArea,
+            postal_code=orderInformationBillToPostalCode,
+            country=orderInformationBillToCountry,
+            email=orderInformationBillToEmail,
+            phone_number=orderInformationBillToPhoneNumber
+        )
+        orderInformation = Ptsv2paymentsOrderInformation(
+            amount_details=orderInformationAmountDetails.__dict__,
+            bill_to=orderInformationBillTo.__dict__,
+        )
 
         # make the order
         # create a random string
@@ -246,7 +244,11 @@ class CreateBoAPayment(APIView):
         try:
             # get the gateway specifications
             config_obj = BoAConfiguration()
+            config_obj.merchantid = application.merchant_id
+            config_obj.alternative_merchantid = application.merchant_id
             config_obj.run_environment = application.run_environment
+            config_obj.merchant_keyid = application.key
+            config_obj.merchant_secretkey = application.shared_secret_key
             client_config = config_obj.get_configuration()
             # attempt to make the transaction
             api_instance = PaymentsApi(client_config)
@@ -263,4 +265,5 @@ class CreateBoAPayment(APIView):
                 return Response(data={"status": "error_payment"}, content_type='application/json', status=400)
             # return the response
         except Exception as e:
+            print(e)
             return Response(data={"status": "error_gateway"}, content_type='application/json', status=500)
