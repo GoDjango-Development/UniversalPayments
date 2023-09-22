@@ -191,37 +191,39 @@ class CreateBoAPayment(APIView):
             total_amount=orderInformationAmountDetailsTotalAmount,
             currency=orderInformationAmountDetailsCurrency
         )
-
-        # build payer data
-        customerAddressData = data.get('customer_address')
-        orderInformationBillToFirstName = user.name
-        orderInformationBillToLastName = user.name
-        # orderInformationBillToAddress1 = user.direccion
-        orderInformationBillToAddress1 = customerAddressData.get('direccion')
-        # orderInformationBillToLocality = user.ciudad
-        orderInformationBillToLocality = customerAddressData.get('locacion')
-        orderInformationBillToAdministrativeArea = customerAddressData.get('area')
-        # orderInformationBillToPostalCode = user.codigo_postal or "33166"
-        orderInformationBillToPostalCode = customerAddressData.get('postal')
-        orderInformationBillToCountry = customerAddressData.get('pais')
-        orderInformationBillToEmail = user.email
-        orderInformationBillToPhoneNumber = customerAddressData.get('telefono')
-        orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
-            first_name=orderInformationBillToFirstName,
-            last_name=orderInformationBillToLastName,
-            address1=orderInformationBillToAddress1,
-            locality=orderInformationBillToLocality,
-            administrative_area=orderInformationBillToAdministrativeArea,
-            postal_code=orderInformationBillToPostalCode,
-            country=orderInformationBillToCountry,
-            email=orderInformationBillToEmail,
-            phone_number=orderInformationBillToPhoneNumber
-        )
+        
 
         orderInformation = Ptsv2paymentsOrderInformation(
             amount_details=orderInformationAmountDetails.__dict__,
-            bill_to=orderInformationBillTo.__dict__
         )
+
+        # build payer data
+        customerAddressData = data.get('customer_address')
+        if customerAddressData:
+            orderInformationBillToFirstName = user.first_name
+            orderInformationBillToLastName = user.last_name
+            # orderInformationBillToAddress1 = user.direccion
+            orderInformationBillToAddress1 = customerAddressData.get('direccion')
+            # orderInformationBillToLocality = user.ciudad
+            orderInformationBillToLocality = customerAddressData.get('locacion')
+            orderInformationBillToAdministrativeArea = customerAddressData.get('area')
+            # orderInformationBillToPostalCode = user.codigo_postal or "33166"
+            orderInformationBillToPostalCode = customerAddressData.get('postal')
+            orderInformationBillToCountry = customerAddressData.get('pais')
+            orderInformationBillToEmail = user.email
+            orderInformationBillToPhoneNumber = customerAddressData.get('telefono')
+            orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
+                first_name=orderInformationBillToFirstName,
+                last_name=orderInformationBillToLastName,
+                address1=orderInformationBillToAddress1,
+                locality=orderInformationBillToLocality,
+                administrative_area=orderInformationBillToAdministrativeArea,
+                postal_code=orderInformationBillToPostalCode,
+                country=orderInformationBillToCountry,
+                email=orderInformationBillToEmail,
+                phone_number=orderInformationBillToPhoneNumber
+            )
+            orderInformation.bill_to=orderInformationBillTo.__dict__
 
         # make the order
         # create a random string
