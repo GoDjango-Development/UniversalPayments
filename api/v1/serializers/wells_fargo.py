@@ -1,4 +1,3 @@
-from unicodedata import name
 from rest_framework import serializers
 from django.core.validators import RegexValidator
 from payments.models import WellsFargoPayment
