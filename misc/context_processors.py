@@ -11,10 +11,13 @@ def get_permissions(request):
         {'app': 'admin', 'model': 'logentry'},
         {'app': 'applications', 'model': 'wellsfargoapplication'},
         {'app': 'applications', 'model': 'squaresapplication'},
+        {'app': 'applications', 'model': 'bankofamericaapplication'},
         {'app': 'documentation', 'model': 'wellsfargodocumentation'},
         {'app': 'documentation', 'model': 'squaresdocumentation'},
+        {'app': 'documentation', 'model': 'bankofamericadocumentation'},
         {'app': 'payments', 'model': 'wellsfargopayment'},
         {'app': 'payments', 'model': 'squarespayment'},
+        {'app': 'payments', 'model': 'bankofamericapayment'},
     ]
 
     for obj in objects:
@@ -38,13 +41,16 @@ def get_permissions(request):
                              perms['has_user_perm'],
         'has_applications_perm': request.user.is_superuser or
                                   perms['has_wellsfargoapplication_perm'] or
-                                  perms['has_squaresapplication_perm'],
+                                  perms['has_squaresapplication_perm'] or
+                                  perms['has_bankofamericaapplication_perm'],
         'has_documentation_perm': request.user.is_superuser or
                                   perms['has_wellsfargodocumentation_perm'] or
-                                  perms['has_squaresdocumentation_perm'],
+                                  perms['has_squaresdocumentation_perm'] or
+                                  perms['has_bankofamericadocumentation_perm'],
         'has_payments_perm': request.user.is_superuser or
                                   perms['has_wellsfargopayment_perm'] or
-                                  perms['has_squarespayment_perm'],
+                                  perms['has_squarespayment_perm'] or
+                                  perms['has_bankofamericapayment_perm'],
     })
     return {
         'permissions': perms
@@ -91,6 +97,12 @@ def build_menu(request):
                         'url': reverse_lazy('admin:applications_squaresapplication_changelist'),
                         'perms': permissions.get('has_squaresapplication_perm')
                     },
+                    {
+                        'name': 'Bank of America',
+                        'icon': '',
+                        'url': reverse_lazy('admin:applications_bankofamericaapplication_changelist'),
+                        'perms': permissions.get('has_bankofamericaapplication_perm')
+                    },
                 ],
                 'perms': permissions.get('has_applications_perm')
             },
@@ -110,6 +122,12 @@ def build_menu(request):
                         'url': reverse_lazy('admin:documentation_squaresdocumentation_changelist'),
                         'perms': permissions.get('has_squaresdocumentation_perm')
                     },
+                    {
+                        'name': 'Bank of America',
+                        'icon': '',
+                        'url': reverse_lazy('admin:documentation_bankofamericadocumentation_changelist'),
+                        'perms': permissions.get('has_bankofamericadocumentation_perm')
+                    },
                 ],
                 'perms': permissions.get('has_documentation_perm')
             },
@@ -128,6 +146,12 @@ def build_menu(request):
                         'icon': '',
                         'url': reverse_lazy('admin:payments_squarespayment_changelist'),
                         'perms': permissions.get('has_squarespayment_perm')
+                    },
+                    {
+                        'name': 'Bank of America',
+                        'icon': '',
+                        'url': reverse_lazy('admin:payments_bankofamericapayment_changelist'),
+                        'perms': permissions.get('has_bankofamericapayment_perm')
                     },
                 ],
                 'perms': permissions.get('has_payments_perm')
