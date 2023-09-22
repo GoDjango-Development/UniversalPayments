@@ -1,2 +1,3 @@
 from .wells_fargo import WellsFargoApplicationForm
 from .square import SquareApplicationForm
+from .bank_of_america import BankOfAmericaApplicationForm
