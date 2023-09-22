@@ -3,8 +3,8 @@ from oauth2_provider.models import Application
 
 
 ENVIRONMENTS = (
-    ('test', 'apitest.cybersource.com'),
-    ('production', 'api.cybersource.com'),
+    ('apitest.cybersource.com', 'test'),
+    ('api.cybersource.com', 'production'),
 )
 
 
