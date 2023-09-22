@@ -1,2 +1,3 @@
 from .wells_fargo import WellsFargoDocumentation
 from .square import SquaresDocumentation
+from .bank_of_america import BankOfAmericaDocumentation
