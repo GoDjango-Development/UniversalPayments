@@ -16,3 +16,4 @@ squareup==29.0.0.20230720
 typing_extensions==4.7.1
 tzdata==2023.3
 oauthlib==3.2.2
+stripe==6.4.0

@@ -1,0 +1,59 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static jazzmin admin_urls static admin_list %}
+{% get_jazzmin_settings request as jazzmin_settings %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+{% block content_title %}
+Detalles de {{ obj }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:app_list' app_label='applications' %}">Stripe</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:payments_stripepayment_changelist' %}">Pagos</a></li>
+    <li class="breadcrumb-item">{{obj.transaction_uuid}}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" style="margin-top: 15px;">
+                            <tr>
+                                <th>UUID de transacción</th>
+                                <td>{{ obj.transaction_uuid }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre de aplicación</th>
+                                <td>{{ obj.stripe_app }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha de creación</th>
+                                <td>{{ obj.datetime }}</td>
+                            </tr>
+                            <tr>
+                                <th>Estado</th>
+                                <td>{{ obj.get_status_as_html }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button onclick="history.go(-1)" class="btn btn-danger pull-right">
+                    <i class="fa fa-ban margin-r-5"></i>
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

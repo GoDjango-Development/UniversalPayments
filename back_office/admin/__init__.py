@@ -5,3 +5,6 @@ from .wells_fargo_payment import WellsFargoPaymentAdmin
 from .square_application import SquareApplicationAdmin
 from .square_documentation import SquareDocumentationAdmin
 from .square_payment import SquarePaymentAdmin
+from .stripe_application import StripeApplication
+from .stripe_documentation import StripeDocumentation
+from .stripe_payment import StripePayment
