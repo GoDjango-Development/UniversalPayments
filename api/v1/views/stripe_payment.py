@@ -47,23 +47,14 @@ class CreateStripePayment(APIView):
         data['amount']=request.data["amount"]
         data['user'] = request.user.id
         data['transaction_uuid'] = str(uuid.uuid4())
-        try:
-            card_data = {
-                "number": request.data["card_number"],
-                "exp_month": request.data["exp_month"],
-                "exp_year": request.data["exp_year"],
-                "cvc": request.data["cvc"],
-            }        
-
-            token = stripe.Token.create(card=card_data)
-
+        token = request.data["token"]
+        try: 
+            
             if token:
-                
-                  tokens=token.id
                   charge = stripe.Charge.create(
-                      amount=request.data["amount"],
+                      amount=float(request.data["amount"])*100,
                       currency=currency,
-                      source=tokens,
+                      source=token,
                       )
                   if charge.status == "succeeded":
                         data['status']=charge.status
