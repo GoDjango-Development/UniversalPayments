@@ -44,7 +44,7 @@ class CreateStripePayment(APIView):
         
         currency=request.data["currency"]
         data = request.data.copy()
-        data['amount']=request.data["amount"]
+        data['amount']=float(request.data["amount"])
         data['user'] = request.user.id
         data['transaction_uuid'] = str(uuid.uuid4())
         token = request.data["token"]
@@ -52,7 +52,7 @@ class CreateStripePayment(APIView):
             
             if token:
                   charge = stripe.Charge.create(
-                      amount=float(request.data["amount"])*100,
+                      amount=int(request.data["amount"])*100,
                       currency=currency,
                       source=token,
                       )
