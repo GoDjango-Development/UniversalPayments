@@ -40,7 +40,7 @@ class CreateStripePayment(APIView):
         API_PUBLIC_KEY=application.api_public_key
         API_SECRET_KEY=application.api_secret_key       
                         
-        stripe.api_key = API_SECRET_KEY  # Reemplaza con tu clave secreta de Stripe
+        stripe.api_key = API_SECRET_KEY  
         
         currency=request.data["currency"]
         data = request.data.copy()
@@ -65,8 +65,17 @@ class CreateStripePayment(APIView):
                            return Response(serializer.data, status=201)
                         return Response(serializer.errors, status=400)
                   else:
-                      data['status']="rejected"
-                      return Response({'error':'El pago no ha podido realizarse'}, status=500)    
+                      try:
+                           cargo = stripe.Charge.retrieve(charge.id)
+                           data['status']="rejected"
+                           cargo.refund()
+                           return Response({'error':'El pago no ha podido realizarse'}, status=500) 
+                           
+                           
+                      except stripe.error.StripeError as e:
+       
+                           return Response({'error':'El pago no ha podido ser cancelado'}, status=500) 
+                         
             else:
                 
                 return Response({'error':'Los Datos de la tarjeta no son correctos'}, status=500)          
