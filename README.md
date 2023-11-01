@@ -1,5 +1,9 @@
 # Universal Payments
 
+**You can donate in BTC to help us maintain and drive these products for the benefit of all of us.**
+
+Bitcoin Wallet: 129ziaFyteW1rGzTcjcPD644fn4RC9ayh9
+
 Este repositorio contiene un proyecto desarrollado en Django que integra múltiples plataformas de pago en un solo lugar y facilita la integración de dichas plataformas para otros desarrolladores, ofreciéndoles una documentación donde se explica el proceso desde la creación de su cuenta en cada plataforma de pago ofrecida por este proyecto, hasta la integración con nuestra API que actúa de intermediaria y abstrae gran parte del funcionamiento, evitando largas horas a los desarrolladores de lectura de extensas documentaciones e iteraciones de prueba y error.
 
 ## Instalación
